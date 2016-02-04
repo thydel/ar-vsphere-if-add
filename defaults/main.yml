@@ -1,0 +1,9 @@
+---
+
+vcenter:  "{{ vcenter_hostname }}"
+username: "{{ vcenter_username }}"
+
+vmname:   "{{ inventory_hostname }}.{{ vcenter_fqdn }}"
+
+vnetname: "{{ Networks[network].vsphere }}"
+ifname:   "{{ Networks[network].ifname }}"

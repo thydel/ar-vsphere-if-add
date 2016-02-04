@@ -1,0 +1,12 @@
+# -*- Mode: jinja2; -*-
+# {{ ansible_managed }}
+# ssh://admin@mercurial.epiconcept.net/usr/epi/ap-clone
+auto {{ Networks[network].ifname }}
+iface {{ Networks[network].ifname }} inet static
+        address {{ Ips[network][inventory_hostname] }}
+        network {{ Networks[network].subnet }}
+        netmask {{ Networks[network].netmask }}
+        broadcast {{ Networks[network].broadcast }}
+{% if default_gw_net == network %}
+        gateway {{ Networks[network].gw }}
+{% endif %}

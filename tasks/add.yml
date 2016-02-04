@@ -1,0 +1,30 @@
+---
+
+- when: debug is defined
+  debug:
+    msg: |
+
+      Add an interface to VM '{{ vmname }}' bound to vsphere net '{{
+      vnetname }}' using interface name '{{ ifname }}'
+
+- name: Add an interface to a VM
+
+  register: nic_
+  delegate_to: pysphere
+
+  vsphere_add_nic:
+    vcenter_hostname: "{{ vcenter }}"
+    username: "{{ username }}"
+    password: "{{ vcenter_password }}"
+    guest: "{{ vmname }}"
+    net: "{{ vnetname }}"
+
+- name: Rename the newly created interface
+
+  notify: ifrename
+  when: nic_|changed and nic_.macaddress is defined
+
+  lineinfile:
+    dest: "{{ etc.iftab }}"
+    regexp: "{{ ifname }}"
+    line: "{{ ifname }} mac {{ nic_.macaddress }}"

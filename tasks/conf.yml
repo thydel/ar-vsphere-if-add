@@ -1,0 +1,37 @@
+---
+
+- when: debug is defined
+  debug:
+    msg: |
+      
+      Use static IP conf for iface '{{ ifname }}'
+
+- name: Ensure needed conf dir exists
+
+  file:
+    path: "{{ etc.ifacesd }}"
+    state: directory
+
+- name: Generate conf file
+
+  register: conf_
+
+  template:
+    backup: True
+    src: net.cfg.j2
+    dest: "{{ etc.ifacesd }}/{{ ifname }}.cfg"
+
+- name: Ensure conf dir used
+
+  lineinfile:
+    dest: "{{ etc.ifaces }}"
+    regexp: '^source '
+    line: 'source {{ etc.ifacesd }}/*.cfg'
+
+- { name: Collect facts again, setup: }
+
+- name: Start iface
+
+  when: conf_|changed or not ansible_{{ ifname }}.active
+
+  command: ifup {{ ifname }}
