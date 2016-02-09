@@ -10,3 +10,8 @@ iface {{ Networks[network].ifname }} inet static
 {% if default_gw_net == network %}
         gateway {{ Networks[network].gw }}
 {% endif %}
+{% if options is defined %}
+{%   for option in options %}
+        {{ option }}
+{%   endfor %}
+{% endif %}
