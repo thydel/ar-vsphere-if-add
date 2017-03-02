@@ -2,5 +2,7 @@
 
 dependencies:
 
-  - { role: pysphere }
-  - { role: etc-paths }
+  - name: pysphere
+    src: https://github.com/thyepi/amr-pysphere-misc.git
+    scm: git
+    version: master
