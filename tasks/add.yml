@@ -10,7 +10,7 @@
 - name: Add an interface to a VM
 
   register: nic_
-  delegate_to: pysphere
+  delegate_to: '{{ pysphere }}'
 
   vsphere_add_nic:
     validate_certs: '{{ validate_certs }}'
