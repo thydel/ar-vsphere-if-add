@@ -2,3 +2,4 @@
 
 etc:
   ifacesd: /etc/network/interfaces.d
+  ifaces:  /etc/network/interfaces
