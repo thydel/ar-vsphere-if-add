@@ -32,6 +32,6 @@
 
 - name: Start iface
 
-  when: conf_|changed or not ansible_{{ ifname }}.active
+  when: conf_|changed or ohai_network.interfaces[ifname].state != 'up'
 
   command: ifup {{ ifname }}
