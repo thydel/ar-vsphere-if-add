@@ -25,9 +25,10 @@
 
   become: True
   notify: ifrename
-  when: nic_.macaddress is defined
 
   lineinfile:
     dest: "{{ etc.iftab }}"
     regexp: "{{ ifname }}"
     line: "{{ ifname }} mac {{ nic_.macaddress }}"
+
+- meta: flush_handlers
