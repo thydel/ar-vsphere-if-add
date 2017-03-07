@@ -11,6 +11,7 @@
 
   register: nic_
   delegate_to: '{{ pysphere }}'
+  no_log: True
 
   vsphere_add_nic:
     validate_certs: '{{ validate_certs }}'
