@@ -2,3 +2,5 @@
 
 - name: ifrename
   command: ifrename
+  become: True
+  
