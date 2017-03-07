@@ -23,8 +23,9 @@
 
 - name: Rename the newly created interface
 
+  become: True
   notify: ifrename
-  when: nic_|changed and nic_.macaddress is defined
+  when: nic_.macaddress is defined
 
   lineinfile:
     dest: "{{ etc.iftab }}"
