@@ -1,0 +1,13 @@
+---
+
+- name: Rename the newly created interface
+
+  become: True
+  notify: ifrename
+
+  lineinfile:
+    dest: "{{ etc.iftab }}"
+    regexp: "{{ ifname }}"
+    line: "{{ ifname }} mac {{ nic_.macaddress }}"
+
+- meta: flush_handlers

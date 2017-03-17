@@ -1,4 +1,8 @@
 ---
 
-- { include: add.yml,  tags: add }
-- { include: conf.yml, tags: conf, become: True }
+- { include: add.yml,                    tags: add }
+# https://github.com/ansible/ansible/issues/18411
+# include_role with with_items causes unexpected exception for role handlers
+- { include: rename.yml,                 tags: add, when: False }
+- { include: rename-without-handler.yml, tags: add, become: True }
+- { include: conf.yml,                   tags: conf, become: True }
