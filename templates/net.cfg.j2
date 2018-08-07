@@ -11,6 +11,16 @@ iface {{ Networks[network].ifname }} inet static
 % if default_gw_net == network
         gateway {{ Networks[network].gw }}
 % endif
+% if Networks[network].routes is defined
+  % for route in Networks[network].routes
+    % set to_net  = Networks[route.net]
+    % set gw      = networks_ip[network][route.gw] | ipaddr('address')
+    % set subnet  = to_net.subnet
+    % set netmask = to_net.netmask
+        post-up  route add -net {{ subnet }} netmask {{ netmask }} gw {{ gw }}
+        pre-down route del -net {{ subnet }} netmask {{ netmask }} gw {{ gw }}
+  % endfor
+% endif
 % if options is defined
 %   for option in options
         {{ option }}
