@@ -33,7 +33,7 @@
 - name: Start iface
 
   register: ifup_
-  when: conf_|changed or ohai_network.interfaces[ifname].state != 'up'
+  when: conf_ is changed or ohai_network.interfaces[ifname].state != 'up'
   # ifup writes on stderr and exits zero
   failed_when: ifup_.stderr != ''
 
